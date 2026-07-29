@@ -35,6 +35,7 @@ cat >/usr/local/libexec/stirling-volume-init <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 install -d -o stirling-pdf -g stirling-pdf -m 0750 \
+  /var/lib/stirling-pdf \
   /var/lib/stirling-pdf/configs \
   /var/lib/stirling-pdf/logs \
   /var/lib/stirling-pdf/customFiles \
