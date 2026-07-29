@@ -62,6 +62,11 @@ class ManifestContract(unittest.TestCase):
 
         self.assertIn("ExecStart=/usr/bin/tini -s --", provision)
 
+    def test_volume_initializer_owns_pipeline_parent_before_nested_directories(self):
+        provision = (ROOT / "recipes/provision.sh").read_text()
+
+        self.assertIn("  /var/lib/stirling-pdf/pipeline \\\n", provision)
+
     def test_acceptance_recipe_validates_functional_readiness_and_persistence(self):
         acceptance = (ROOT / "recipes/acceptance.sh").read_text()
 

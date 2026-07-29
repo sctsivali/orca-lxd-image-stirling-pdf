@@ -38,6 +38,7 @@ install -d -o stirling-pdf -g stirling-pdf -m 0750 \
   /var/lib/stirling-pdf/configs \
   /var/lib/stirling-pdf/logs \
   /var/lib/stirling-pdf/customFiles \
+  /var/lib/stirling-pdf/pipeline \
   /var/lib/stirling-pdf/pipeline/watchedFolders \
   /var/lib/stirling-pdf/pipeline/finishedFolders \
   /var/lib/stirling-pdf/storage \
