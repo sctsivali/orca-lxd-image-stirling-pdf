@@ -25,6 +25,7 @@ class ManifestContract(unittest.TestCase):
         self.assertEqual(manifest["persistent_paths"], [{
             "path": "/var/lib/stirling-pdf", "volume": "stirling-data", "required": True,
         }])
+        self.assertEqual(manifest["volume_expectations"]["stirling-data"]["owner"], "988:988")
         self.assertEqual(manifest["first_boot_credentials"]["behavior"], "none-login-disabled")
         self.assertEqual(manifest["upstream"]["version_strategy"], "github-releases")
         self.assertEqual(manifest["branding"]["local_path"], "assets/logo.png")
@@ -42,6 +43,8 @@ class ManifestContract(unittest.TestCase):
         self.assertLess(build.index("device add"), build.index(" start "))
         self.assertIn("20159880475e8fc00483423405b44c48058557e3ff197baa87ebacf5d22d37c2", provision)
         self.assertIn("sha256sum --check", provision)
+        self.assertIn("--gid 988", provision)
+        self.assertIn("--uid 988", provision)
         self.assertIn("User=stirling-pdf", provision)
         self.assertIn("ExecStartPre=+/usr/local/libexec/stirling-volume-init", provision)
         self.assertIn("NoNewPrivileges=true", provision)

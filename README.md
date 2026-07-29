@@ -24,7 +24,7 @@ The application listens on HTTP port `8080` on a private instance address. Publi
 
 ## Persistence
 
-Persistent state is stored under `/var/lib/stirling-pdf` on the required `stirling-data` volume. It includes configuration, logs, custom files, pipeline folders, storage, and runtime temp data. The service initializes ownership narrowly as UID/GID `992:992` during every start, including an empty first-boot volume.
+Persistent state is stored under `/var/lib/stirling-pdf` on the required `stirling-data` volume. It includes configuration, logs, custom files, pipeline folders, storage, and runtime temp data. The service initializes ownership narrowly as UID/GID `988:988` during every start, including an empty first-boot volume.
 
 ## Backup and upgrade
 

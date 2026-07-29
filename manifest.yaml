@@ -35,7 +35,7 @@ persistent_paths:
 volume_expectations:
   stirling-data:
     filesystem: any-linux
-    owner: "992:992"
+    owner: "988:988"
     empty_volume_supported: true
 first_boot_credentials:
   behavior: none-login-disabled

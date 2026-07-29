@@ -11,9 +11,9 @@ apt-get update
 apt-get install -y --no-install-recommends ca-certificates curl openjdk-21-jre-headless tini
 rm -rf /var/lib/apt/lists/*
 
-if ! getent group stirling-pdf >/dev/null; then groupadd --system --gid 992 stirling-pdf; fi
+if ! getent group stirling-pdf >/dev/null; then groupadd --system --gid 988 stirling-pdf; fi
 if ! id stirling-pdf >/dev/null 2>&1; then
-  useradd --system --uid 992 --gid stirling-pdf --home-dir /var/lib/stirling-pdf --shell /usr/sbin/nologin stirling-pdf
+  useradd --system --uid 988 --gid stirling-pdf --home-dir /var/lib/stirling-pdf --shell /usr/sbin/nologin stirling-pdf
 fi
 install -d -o root -g root -m 0755 /opt/stirling-pdf /usr/local/libexec
 install -d -o stirling-pdf -g stirling-pdf -m 0750 /var/lib/stirling-pdf
