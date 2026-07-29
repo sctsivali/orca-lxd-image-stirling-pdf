@@ -1,3 +1,4 @@
+# Install as .github/workflows/validate.yml when using a credential with workflow scope.
 name: Validate image repository
 on:
   push:
