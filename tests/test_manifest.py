@@ -49,6 +49,19 @@ class ManifestContract(unittest.TestCase):
         self.assertIn("ExecStartPre=+/usr/local/libexec/stirling-volume-init", provision)
         self.assertIn("NoNewPrivileges=true", provision)
 
+    def test_provision_pins_java_25_runtime_required_by_release_jar(self):
+        provision = (ROOT / "recipes/provision.sh").read_text()
+
+        self.assertNotIn("openjdk-21-jre-headless", provision)
+        self.assertIn("OpenJDK25U-jre_x64_linux_hotspot_25.0.4_7.tar.gz", provision)
+        self.assertIn("aed3915f8facc0c80733ab2448bb0df4b494a36a2c5759e9a6e1eb979720f2b3", provision)
+        self.assertIn("/opt/java/bin/java", provision)
+
+    def test_service_registers_tini_as_child_subreaper(self):
+        provision = (ROOT / "recipes/provision.sh").read_text()
+
+        self.assertIn("ExecStart=/usr/bin/tini -s --", provision)
+
     def test_acceptance_recipe_validates_functional_readiness_and_persistence(self):
         acceptance = (ROOT / "recipes/acceptance.sh").read_text()
 

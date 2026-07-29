@@ -5,11 +5,20 @@ version=2.14.2
 asset=Stirling-PDF-server.jar
 url="https://github.com/Stirling-Tools/Stirling-PDF/releases/download/v${version}/${asset}"
 sha256=20159880475e8fc00483423405b44c48058557e3ff197baa87ebacf5d22d37c2
+java_asset=OpenJDK25U-jre_x64_linux_hotspot_25.0.4_7.tar.gz
+java_url="https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4%2B7/${java_asset}"
+java_sha256=aed3915f8facc0c80733ab2448bb0df4b494a36a2c5759e9a6e1eb979720f2b3
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y --no-install-recommends ca-certificates curl openjdk-21-jre-headless tini
+apt-get install -y --no-install-recommends ca-certificates curl tar tini
 rm -rf /var/lib/apt/lists/*
+
+curl --fail --location --retry 5 --output "/tmp/${java_asset}" "$java_url"
+printf '%s  %s\n' "$java_sha256" "/tmp/${java_asset}" | sha256sum --check
+install -d -o root -g root -m 0755 /opt/java
+tar --extract --gzip --file "/tmp/${java_asset}" --directory /opt/java --strip-components=1
+rm -f "/tmp/${java_asset}"
 
 if ! getent group stirling-pdf >/dev/null; then groupadd --system --gid 988 stirling-pdf; fi
 if ! id stirling-pdf >/dev/null 2>&1; then
@@ -52,7 +61,7 @@ User=stirling-pdf
 Group=stirling-pdf
 WorkingDirectory=/opt/stirling-pdf
 ExecStartPre=+/usr/local/libexec/stirling-volume-init
-ExecStart=/usr/bin/tini -- /usr/bin/java -XX:+ExitOnOutOfMemoryError -XX:MaxRAMPercentage=70 -Djava.awt.headless=true -jar /opt/stirling-pdf/${asset}
+ExecStart=/usr/bin/tini -s -- /opt/java/bin/java -XX:+ExitOnOutOfMemoryError -XX:MaxRAMPercentage=70 -Djava.awt.headless=true -jar /opt/stirling-pdf/${asset}
 Restart=on-failure
 RestartSec=5
 Environment=SERVER_PORT=8080
