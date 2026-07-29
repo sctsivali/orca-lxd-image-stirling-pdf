@@ -74,6 +74,7 @@ class ManifestContract(unittest.TestCase):
         self.assertIn("python3 -c", acceptance)
         self.assertIn("status", acceptance)
         self.assertIn("/api/v1/info", acceptance)
+        self.assertNotIn("http://127.0.0.1:8080/api/v1/info \\\n", acceptance)
         self.assertIn("orca-persistence-probe", acceptance)
         self.assertIn("systemctl is-active --quiet stirling-pdf", acceptance)
 
