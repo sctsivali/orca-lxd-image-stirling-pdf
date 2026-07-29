@@ -1,0 +1,62 @@
+schema: orca.app-image/v2
+slug: stirling-pdf
+application:
+  display_name: Stirling PDF
+  category: Productivity
+  description: Edit, convert, merge, split, and manage PDF documents.
+  version: 2.14.2
+base_os:
+  distribution: ubuntu
+  release: "24.04"
+architecture: x86_64
+instance_type: container
+deployment_type: container
+minimum_resources:
+  cpu: 2
+  memory_mib: 2048
+  storage_gib: 10
+network:
+  default_policy: private
+  public_ip: never-required
+  public_ingress: OrcaHub Exposer only
+exposer:
+  enabled: true
+  endpoints:
+    - name: web
+      protocol: http
+      target_port: 8080
+      default_public: true
+      tls: automatic
+      health_path: /api/v1/info/status
+persistent_paths:
+  - path: /var/lib/stirling-pdf
+    volume: stirling-data
+    required: true
+volume_expectations:
+  stirling-data:
+    filesystem: any-linux
+    owner: "992:992"
+    empty_volume_supported: true
+first_boot_credentials:
+  behavior: none-login-disabled
+  baked_credentials: false
+upstream:
+  source_url: https://github.com/Stirling-Tools/Stirling-PDF
+  homepage: https://www.stirlingpdf.com/
+  version_url: https://api.github.com/repos/Stirling-Tools/Stirling-PDF/releases/latest
+  version_strategy: github-releases
+branding:
+  local_path: assets/logo.png
+  logo_source_url: https://github.com/Stirling-Tools/Stirling-PDF/blob/v2.14.2/frontend/shared/assets/brand/classic-logo/logo512.png
+build:
+  ready: true
+  recipe: recipes/build.sh
+  acceptance_test: recipes/acceptance.sh
+  upstream_asset:
+    url: https://github.com/Stirling-Tools/Stirling-PDF/releases/download/v2.14.2/Stirling-PDF-server.jar
+    sha256: 20159880475e8fc00483423405b44c48058557e3ff197baa87ebacf5d22d37c2
+publication:
+  state: planned
+  requires_all_tests: true
+  mutable_alias_after_validation: true
+repository: https://github.com/sctsivali/orca-lxd-image-stirling-pdf
