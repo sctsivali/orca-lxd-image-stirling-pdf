@@ -37,6 +37,7 @@ class ManifestContract(unittest.TestCase):
 
         self.assertIn("ubuntu:24.04", build)
         self.assertIn("--storage \"$STORAGE\"", build)
+        self.assertIn("size=10GiB", build)
         self.assertIn("root,size=\"$ROOT_SIZE\"", build)
         self.assertLess(build.index("device add"), build.index(" start "))
         self.assertIn("20159880475e8fc00483423405b44c48058557e3ff197baa87ebacf5d22d37c2", provision)
