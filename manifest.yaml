@@ -56,7 +56,14 @@ build:
     url: https://github.com/Stirling-Tools/Stirling-PDF/releases/download/v2.14.2/Stirling-PDF-server.jar
     sha256: 20159880475e8fc00483423405b44c48058557e3ff197baa87ebacf5d22d37c2
 publication:
-  state: planned
+  state: published
+  qualified_at: 2026-07-30T00:41:09Z
+  published_at: "2026-08-03T05:46:37Z"
+  published_alias: stirling-pdf/2.14.2
+  exact_import_fingerprint: ddf4fbec0ce45d745aa924782f6e1d25c9dbd05495181e3c167e3b9b229400ee
+  metadata_sha256: 5e90dade41a74c905e77708ff667c6c8f35b13e2de094925c5662ff042e48f97
+  rootfs_sha256: 4bdb52d9ed1cdb07a58131a906c8f82fd84813366b51cd5d48b80f80c902052b
+  public_readback: verified-live
   requires_all_tests: true
-  mutable_alias_after_validation: true
+  mutable_alias_after_validation: false
 repository: https://github.com/sctsivali/orca-lxd-image-stirling-pdf
